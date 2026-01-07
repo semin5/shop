@@ -11,16 +11,6 @@ public class ShopApplication {
 
 		SpringApplication.run(ShopApplication.class, args);
 
-		Friend friend = new Friend("lee");
-		System.out.println(friend.name);
 	}
 
-}
-
-class Friend{
-	String name;
-	int age = 20;
-	Friend(String a){
-		this.name = a;
-	}
 }
