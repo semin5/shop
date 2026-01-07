@@ -16,12 +16,12 @@ public class ItemController {
 
     @GetMapping("/list")
     String list(Model model){
-
         List<Item> result = itemRepository.findAll();
-        System.out.println(result.get(0).price);
-        System.out.println(result.get(0).title);
+        model.addAttribute("items", result);
 
-        model.addAttribute("name", "비싼 바지");
+        var a = new Item();
+        System.out.println(a.toString());
+
         return "list.html";
     }
 }

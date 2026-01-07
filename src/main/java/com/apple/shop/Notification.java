@@ -4,13 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Entity
+@ToString
 public class Notification {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String title;
-    LocalDateTime date;
+    public Long id;
+    public String title;
+    public LocalDateTime date;
 }
