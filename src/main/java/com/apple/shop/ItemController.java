@@ -18,13 +18,8 @@ public class ItemController {
     String list(Model model){
 
         List<Item> result = itemRepository.findAll();
-        System.out.println(result);
-
-        List<Integer> a = new ArrayList<>();
-        a.add(30);
-        a.add(40);
-        System.out.println(a.get(0));
-        System.out.println(a.get(1));
+        System.out.println(result.get(0).price);
+        System.out.println(result.get(0).title);
 
         model.addAttribute("name", "비싼 바지");
         return "list.html";
