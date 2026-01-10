@@ -1,6 +1,5 @@
-package com.apple.shop;
+package com.apple.shop.other;
 
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 

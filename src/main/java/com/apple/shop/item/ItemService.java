@@ -1,4 +1,4 @@
-package com.apple.shop;
+package com.apple.shop.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +37,22 @@ public class ItemService {
         Optional<Item> result = itemRepository.findById(id);
         return result;
 
+    }
+
+    public void editItem(Long id, String title, Integer price){
+
+        if (title.length() > 100){
+            throw new RuntimeException("너무 김");
+        }
+
+        if(price < 0){
+            throw new RuntimeException("음수 안됩니다");
+        }
+
+        Item item = new Item();
+        item.setId(id);
+        item.setTitle(title);
+        item.setPrice(price);
+        itemRepository.save(item);
     }
 }
