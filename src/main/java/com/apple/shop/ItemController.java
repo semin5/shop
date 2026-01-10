@@ -12,12 +12,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ItemController {
 
-    private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
     @GetMapping("/list")
     String list(Model model){
-        List<Item> result = itemRepository.findAll();
-        model.addAttribute("items", result);
+
+        model.addAttribute("items", itemService.list());
 
         return "list.html";
     }
@@ -32,10 +32,7 @@ public class ItemController {
     String addPost(@RequestParam String title,
                    @RequestParam Integer price){
 
-        Item item = new Item();
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
+        itemService.saveItem(title, price);
 
         return "redirect:/list";
     }
@@ -43,7 +40,8 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model){
 
-        Optional<Item> result = itemRepository.findById(id);
+        Optional<Item> result = itemService.detail(id);
+
         if(result.isPresent()){
             model.addAttribute("data", result.get());
 
