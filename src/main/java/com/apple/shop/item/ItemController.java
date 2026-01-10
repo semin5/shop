@@ -66,10 +66,10 @@ public class ItemController {
         }
     }
 
-    @PostMapping("/edit/{id}")
-    String editPost(@RequestParam String title,
+    @PostMapping("/edit")
+    String editItem(@RequestParam String title,
                    @RequestParam Integer price,
-                    @PathVariable Long id) {
+                    @RequestParam Long id) {
 
         itemService.editItem(id, title, price);
 
