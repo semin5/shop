@@ -76,5 +76,9 @@ public class ItemController {
         return "redirect:/list";
     }
 
-
+    @GetMapping("/delete")
+    String test1(@RequestParam Long id){
+        System.out.println(id);
+        return "redirect:/list";
+    }
 }

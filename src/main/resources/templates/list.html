@@ -21,6 +21,8 @@
             </a>
             <p th:text="${i.price + '원'}">7억</p>
             <a th:href="@{'/edit/' + ${i.id}}">✏️</a>
+            <span onclick="fetch('/item', { method : 'DELETE' } )">🗑️</span>
+
         </div>
     </div>
 
