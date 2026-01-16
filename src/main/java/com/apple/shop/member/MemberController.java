@@ -25,7 +25,7 @@ public class MemberController {
                     @RequestParam String password,
                     @RequestParam String displayName){
 
-        memberService.register(username, password, displayName);
+        memberService.saveMember(username, password, displayName);
 
         return "redirect:/list";
     }
