@@ -16,8 +16,7 @@ public class MemberService {
 
         Member member = new Member();
         member.setUsername(username);
-        String hash = passwordEncoder.encode(password);
-        member.setPassword(hash);
+        member.setPassword(passwordEncoder.encode(password));
         member.setDisplayName(displayName);
         memberRepository.save(member);
     }
