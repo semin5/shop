@@ -10,7 +10,7 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> handler1(){
-        return ResponseEntity.status(400).body("에러남");
+        return ResponseEntity.status(400).body("메소드 값 에러남");
     }
 
     @ExceptionHandler(Exception.class)
