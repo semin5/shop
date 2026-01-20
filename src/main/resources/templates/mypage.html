@@ -16,6 +16,12 @@
 
 <div sec:authentication="principal"></div>
 <div sec:authentication="principal.usernname"></div>
+<div sec:authorize="hasAuthority('일반유저')">
+    <h4>이 유저는 일반유저 권한임</h4>
+</div>>
+<div sec:authorize="isAuthenticated()">
+    <h4>이 유저는 로그인 했음</h4>
+</div>
 <div sec:authorize="isAnonymous()">
     <h4>이 유저는 로그인 안했음</h4>
 </div>
