@@ -30,6 +30,10 @@
 
         </div>
     </div>
-
+    <div>
+        <a th:each = "i : ${#numbers.sequence(0, pages - 1)}"
+           th:href="@{'/list/page/' + ${i + 1}}"
+           th:text="${i + 1}"></a>
+    </div>
 </body>
 </html>
