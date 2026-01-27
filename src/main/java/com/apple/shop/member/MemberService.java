@@ -32,4 +32,13 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public MemberDto getUser(){
+
+        Optional<Member> a = memberRepository.findById(1L);
+        Member result = a.get();
+        MemberDto data = new MemberDto(result.getUsername(), result.getDisplayName(), result.getId());
+
+        return data;
+    }
+
 }

@@ -1,18 +1,25 @@
 package com.apple.shop.member;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/register")
     String register(Authentication auth){
@@ -44,9 +51,17 @@ public class MemberController {
     public String myPage(Authentication auth) {
 
         CustomUser result = (CustomUser)auth.getPrincipal();
-        System.out.println(result.displayName);
 
         return "mypage.html";
+    }
+
+    @GetMapping("/user/1")
+    @ResponseBody
+    public MemberDto getUser() {
+
+        MemberDto data = memberService.getUser();
+
+        return data;
     }
 
 }
