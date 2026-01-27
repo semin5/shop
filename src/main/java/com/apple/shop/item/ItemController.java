@@ -1,10 +1,10 @@
 package com.apple.shop.item;
 
+import com.apple.shop.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +15,17 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ItemController {
 
-    private final ItemService itemService;
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
+    private final S3Service s3Service;
+
 
     @GetMapping("/list")
     String list(Model model) {
 
         model.addAttribute("items", itemService.list());
 
-        return "list.html";
+        return "redirect:/list/page/1";
     }
 
     @GetMapping("/write")
@@ -34,9 +36,10 @@ public class ItemController {
 
     @PostMapping("/add")
     String addPost(@RequestParam String title,
-                   @RequestParam Integer price) {
+                   @RequestParam Integer price,
+                   @RequestParam String filename) {
 
-        itemService.saveItem(title, price);
+        itemService.saveItem(title, price, filename);
 
         return "redirect:/list";
     }
@@ -87,15 +90,24 @@ public class ItemController {
         return ResponseEntity.status(200).body("삭제");
     }
 
-    @GetMapping("/list/page/{abc}")
-    String getListPage(Model model, @PathVariable Integer abc) {
+    @GetMapping("/list/page/{pages}")
+    String getListPage(Model model, @PathVariable Integer pages) {
 
-        Page<Item> result = itemRepository.findPageBy(PageRequest.of(abc-1, 5));
+        Page<Item> result = itemService.getListPage(pages);
+
         model.addAttribute("items", result);
         model.addAttribute("pages", result.getTotalPages());
 
-
         return "list.html";
+    }
+
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    String getURL(@RequestParam String filename) {
+
+        var result = s3Service.createPresignedUrl("test/" + filename);
+
+        return result;
     }
 
 }

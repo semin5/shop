@@ -1,6 +1,8 @@
 package com.apple.shop.item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class ItemService {
         return result;
     }
 
-    public void saveItem(String title, Integer price){
+    public void saveItem(String title, Integer price, String image){
 
         if (title.length() > 100){
             throw new RuntimeException("너무 김");
@@ -30,6 +32,7 @@ public class ItemService {
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
+        item.setImage(image);
         itemRepository.save(item);
     }
 
@@ -59,5 +62,12 @@ public class ItemService {
     public void deleteItem(Long id){
         itemRepository.deleteById(id);
 
+    }
+
+    public Page<Item> getListPage(Integer pages){
+
+        Page<Item> result = itemRepository.findPageBy(PageRequest.of(pages-1, 5));
+
+        return result;
     }
 }
