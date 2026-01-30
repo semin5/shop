@@ -1,6 +1,8 @@
 package com.apple.shop.item;
 
 import com.apple.shop.S3Service;
+import com.apple.shop.comment.Comment;
+import com.apple.shop.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import java.util.*;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
     private final ItemService itemService;
     private final S3Service s3Service;
 
@@ -47,11 +50,12 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
 
+        List<Comment> comment = commentRepository.findAllByParentId(id);
         Optional<Item> result = itemService.detail(id);
 
         if (result.isPresent()) {
             model.addAttribute("data", result.get());
-
+            model.addAttribute("comment", comment);
             return "detail.html";
         } else {
 

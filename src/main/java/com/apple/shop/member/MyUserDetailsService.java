@@ -41,15 +41,4 @@ public class MyUserDetailsService implements UserDetailsService {
 
 }
 
-class CustomUser extends User{
 
-    public Long id;
-    public String displayName;
-
-    public CustomUser(String username,
-                      @Nullable String password,
-                      Collection<? extends GrantedAuthority> authorities
-    ) {
-        super(username, password, authorities);
-    }
-}
